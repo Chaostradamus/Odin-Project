@@ -17,30 +17,70 @@ function getCompChoice() {
 // sims one round of game taking in player and cpu choice
 // case insensitive to choices
 // returns winner
-function playRound(playerSelection, computerSelection) {
-  let result;
-  let playerChoice = prompt("Pick a play").toLowerCase().trim();
-  playerSelection = playerChoice;
-  computerSelection = getCompChoice();
-  if (playerSelection === computerSelection) {
-    result = "its a tie";
-  } else if (
-    (playerSelection === "rock" && computerSelection === "scissors") ||
-    (playerSelection === "paper" && computerSelection === "rock") ||
-    (playerSelection === "scissors" && computerSelection === "paper")
-  ) {
-    result = "you win!";
-  } else {
-    result = "you lose";
-  }
-  return (`"Player picked:" ${playerSelection} "cpu picked:" ${computerSelection} ", so the result is a" ${result}`);
-}
+// function playRound(playerSelection, computerSelection) {
+//   let result;
+//   let playerChoice = prompt("Pick a play").toLowerCase().trim();
+//   playerSelection = playerChoice;
+//   computerSelection = getCompChoice();
+//   if (playerSelection === computerSelection) {
+//     result = "its a tie";
+//   } else if (
+//     (playerSelection === "rock" && computerSelection === "scissors") ||
+//     (playerSelection === "paper" && computerSelection === "rock") ||
+//     (playerSelection === "scissors" && computerSelection === "paper")
+//   ) {
+//     result = "you win!";
+//   } else {
+//     result = "you lose";
+//   }
+//   return (`"Player picked:" ${playerSelection} "cpu picked:" ${computerSelection} ", so the result is a" ${result}`);
+// }
 
 //plays 5 round game that keeps score and returns winner
 // display winner after each round
-function playSeries() {
-    
+let score = [0, 0];
+let winner;
+let result;
+let playerScore = 0;
+let cpuScore = 0;
+
+async function playSeries() {
+  while (playerScore < 3 && cpuScore < 3) {
+    await playRound();
+    if (playerScore === 3) {
+      console.log("a winner is you");
+    } else if (cpuScore === 3) {
+      console.log("cpu wins!");
+    }
+  }
+  function playRound(playerSelection, computerSelection) {
+    let playerChoice = prompt("Pick a play").toLowerCase().trim();
+    playerSelection = playerChoice;
+    computerSelection = getCompChoice();
+    if (playerSelection === computerSelection) {
+      result = "its a tie";
+    } else if (
+      (playerSelection === "rock" && computerSelection === "scissors") ||
+      (playerSelection === "paper" && computerSelection === "rock") ||
+      (playerSelection === "scissors" && computerSelection === "paper")
+    ) {
+      result = "you win!";
+      playerScore++;
+    } else {
+      result = "you lose";
+      cpuScore++;
+    }
+    return console.log(
+      `"Player picked:" ${playerSelection} "cpu picked:" ${computerSelection} ", so the result is a" ${result}`
+    );
+  }
+  // if ((playerScore = 3)) {
+  //   return console.log("a winner is you!");
+  // } else if ((cpuScore = 3)) {
+  //   return console.log("you lose!!");
+  // } else {
+  //   playRound();
+  // }
 }
 
-// console.log(getCompChoice());
-console.log(playRound());
+playSeries();
